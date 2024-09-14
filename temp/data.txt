@@ -1,5 +1,0 @@
-levels stored in: plist/dict/d[0]/d[level list]
-
-sf data structure
-
-1, id, 2, xpos, 3, ypos, 6, rotation, 21, base col, 22, detail col, 32, scale, 43, base hsv, 44, detail hsv, 57, group

@@ -12,9 +12,14 @@ GeoScript is a
 Documentation
 ------------------------------------
 Changelog: ./changelog.md
+
 License: ./license.md | MIT License
+
 Security policy: ./security.md
+
 Developer / Contributing docs: ./documents
 
+
 Contributing: ./.github/CONTRIBUTING.md
+
 Code Owners: ./.github/CODEOWNERS

@@ -1,0 +1,9 @@
+# config files
+*.vscode
+*.github
+
+# cache files
+*__pycache__
+*build/__pycache__
+*components/__pycache__
+*interface/__pycache__

@@ -1,0 +1,49 @@
+#define test_variable: intager = 89
+#const test_constant: string = "Test"
+#indef test_macro 75
+
+// test comment
+
+...
+
+@class TestClass {
+    #function __init__(self: TestClass) {
+        ...
+    }
+
+    #function test(self: Object, arguments: string) {
+        ...
+    }
+}
+
+#function lls(test: int) {
+    #define men: string = "MEN"
+}
+
+@struct house {
+    ...
+}
+
+test_variable += 1
+test_variable -= 2
+test_variable *= 8
+test_variable /= 6
+
+while (test_constant == "Test") {
+    ...
+}
+
+for (i: intager, i<8, i++) {
+    ...
+}
+
+
+if (test_variable == 8) {
+    ...
+} else if (test_variable == 6) {
+    ...
+} else {
+    ...
+}
+
+lls()

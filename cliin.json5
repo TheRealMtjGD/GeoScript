@@ -1,0 +1,7 @@
+{
+    "input": "tests/compile-test.gss",
+    "output": "GeoScript test",
+    "extra-include-paths": null,
+    "output-quick-compile": false,
+    "verbose-output": false
+}

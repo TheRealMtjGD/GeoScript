@@ -1,0 +1,12 @@
+# CODEOWNERS file
+
+# Config files
+.github/**              @TheRealMtjGD
+.vscode/**              @TheRealMtjGD
+.gitignore              @TheRealMtjGD
+.git/**                 @TheRealMtjGD
+
+# Doc files
+documentation/**        @TheRealMtjGD
+README.md               @TheRealMtjGD
+LICENSE.md              @TheRealMtjGD

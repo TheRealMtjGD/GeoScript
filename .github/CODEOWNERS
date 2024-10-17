@@ -5,8 +5,13 @@
 .vscode/**              @TheRealMtjGD
 .gitignore              @TheRealMtjGD
 .git/**                 @TheRealMtjGD
+requirements.txt        @TheRealMtjGD
 
 # Doc files
 documents/**            @TheRealMtjGD
 README.md               @TheRealMtjGD
 LICENSE.md              @TheRealMtjGD
+
+
+# CompilerLib folders
+Components/**           @TheRealMtjGD

@@ -8,7 +8,7 @@ class GSMacro:
     def exec_macro(self, arguments: list[str]) -> str:
         macro_code: str = self.mc
         
-        for posindex, value, in arguments:
+        for posindex, value, in enumerate(arguments):
             arg = self.args[posindex]
             
             macro_code = macro_code.replace(arg, value)

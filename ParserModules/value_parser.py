@@ -15,7 +15,7 @@ class TypeTemplates:
             'value': value,
             'format': 'decimal',
             'hex': hex(value),
-            'binary': bin(value),
+            'binary': bin(value).removeprefix('0b'),
             'base-class': 'intager'
         }
     
@@ -32,7 +32,7 @@ class TypeTemplates:
         return {
             'value': value,
             'rint': round(value),
-            'binary': f'{bin(int(stringify[0]))}{bin(int(stringify[1]))}',
+            'binary': f'{bin(int(stringify[0])).removeprefix('0b')}{bin(int(stringify[1])).removeprefix('0b')}',
             'base-class': 'float'
         }
     

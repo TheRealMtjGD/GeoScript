@@ -1,6 +1,5 @@
-# 54 > 0x009 && foo == "bar"
-
-from . import value_parser
+# 54 > 0x009 && foo == "bar" 
+import value_parser
 
 __comparitives = [
     '>',
@@ -11,24 +10,6 @@ __comparitives = [
     '&&',
     '!='
 ]
-
-def __comparitive_locator(comp: str):
-    return_comp = {
-        '>': 0,
-        '<': 0,
-        '==': 0,
-        '>=': 0,
-        '<=': 0,
-        '!=': 0,
-        
-        '&&': 0,
-    }
-    
-    for i in __comparitives:
-        if i in comp:
-            return_comp[i] += 1
-    
-    return return_comp
 
 def removeWhitespace(comp: str) -> str:
     comp: list = comp.split(' ')
@@ -44,19 +25,18 @@ def removeWhitespace(comp: str) -> str:
 def parseComparitive(comparitive: str) -> list:
     parsed_comparitive = []
     comparitive = removeWhitespace(comparitive)
-    comp_location = __comparitive_locator(comparitive)
     
     split_comparitive = comparitive.split('&&')
     
     for i in split_comparitive:
         comp = 'errortype?'
         
-        for ii in __comparitives:
-            if ii in i:
-                comp = comp.split(ii)
+        for cmp in __comparitives:
+            if cmp in i:
+                comp = i.split(cmp)
                 comp[0] = value_parser.parseType(comp[0])
                 comp[1] = value_parser.parseType(comp[1])
-                comp.insert(1, ii)
+                comp.insert(1, cmp)
         
         parsed_comparitive.append(comp)
     

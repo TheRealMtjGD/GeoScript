@@ -1,5 +1,18 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
+
+#define CONFIG_FILE_PATH "C:/Users/Public/AppData/Local/Programs/GeoScript/config.env"
+
+int writeToConfig(char *file, char *level, char *buildmode) {
+    FILE *wstream;
+    wstream = fopen(CONFIG_FILE_PATH, "w");
+
+    fprintf(wstream, "file=%s\nlevel=%s\nbuildmode=%s", file, level, buildmode);
+    fclose(wstream);
+
+    return 0;
+}
 
 void usage() {
     printf("GeoScript Usage: geoscript -c [file] [level]\n");
@@ -21,22 +34,20 @@ void help() {
 
 int main(int argc, char **argv) {
     if (argc > 1) {
-        if ("%s", argv[1] == "%s", "--help") {
+        if (strcmp(argv[1], "--help") == 0) {
             help();
-        } else if ("%s", argv[1] == "%s", "--usage") {
+        } else if (strcmp(argv[1], "--usage") == 0) {
             usage();
-        } else if ("%s", argv[1] == "%s", "--version") {
+        } else if (strcmp(argv[1], "--version") == 0) {
             printf("GeoScript 1.0.0 ( windows-x64 )\n");
-        } else if ("%s", argv[1] == "%s", "-c") {
-            char cmdstr[] = "echo 'file=%s\nlevel=%s\nmode=basecompile' > C:/Users/Public/AppData/Local/Programs/GeoScript/config.env", argv[1], argv[2];
-            system(cmdstr);
+        } else if (strcmp(argv[1], "-c") == 0) {
+            writeToConfig(argv[2], argv[3], "std");
             system("python C:/Users/Public/AppData/Local/Programs/GeoScript/main.py");
-        } else if ("%s", argv[1] == "%s", "-gsc") {
-            char cmdstr[] = "echo 'file=%s\nlevel=%s\nmode=quickcompile' > C:/Users/Public/AppData/Local/Programs/GeoScript/config.env", argv[1], argv[2];
-            system(cmdstr);
+        } else if (strcmp(argv[1], "-gsc") == 0) {
+            writeToConfig(argv[2], argv[3], "gsc");
             system("python C:/Users/Public/AppData/Local/Programs/GeoScript/main.py");
         } else {
-            printf("Fatal error: invalid argument %s\n", argv[1]);
+            printf("Fatal error: invalid argument '%s'\n", argv[1]);
         }
     } else {
         usage();

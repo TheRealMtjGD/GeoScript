@@ -36,6 +36,12 @@ class TypeTemplates:
             'base-class': 'float'
         }
     
+    def bool_template(self, value: str) -> dict:
+        if value == 'true':
+            return TypeTemplates().intager_template(1)
+        elif value == 'false':
+            return TypeTemplates().intager_template(0)
+    
     def undefined_template(self, value: str) -> dict:
         return {
             'value': value,
@@ -51,6 +57,8 @@ def parseType(value: str) -> dict:
         return TypeTemplates().intager_template(int(value))
     elif '.' in value:
         return TypeTemplates().float_template(float(value))
+    elif ['true', 'false'] in value:
+        return TypeTemplates().bool_template(value)
     
     try:
         int(value, 16)

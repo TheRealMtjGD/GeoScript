@@ -1,4 +1,4 @@
-import value_parser
+from . import value_parser
 
 __operands = [
     '+',
@@ -65,5 +65,3 @@ def parseMathOperation(operation: str) -> list:
             parsed.insert(0, i)
 
     return parsed
-
-print(parseMathOperation('8 + 6 * ( 734.94 / 94 ) + (4 / 9)'))

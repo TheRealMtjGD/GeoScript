@@ -4,11 +4,11 @@ class InitHeapMemory:
             max_heap = 5000
             
         self.hmax = max_heap
-        self.heap_memory = []
+        self.heap_memory = ["0xFFFF"]
     
     @property
     def get_pointer(self) -> str:
-        return hex(max(self.heap_memory) + 1)
+        return hex(max([int(i, 16) for i in self.heap_memory]) + 1)
     
     def allocateValue(self, adress: str|None=None) -> int:
         if adress == None:

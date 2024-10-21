@@ -1,5 +1,3 @@
-from ..Components import error_handler
-
 class DebugParserBacklog:
     def __init__(self) -> None:
         self.backlog = {}
@@ -11,6 +9,6 @@ class DebugParserBacklog:
             'ln': linenum
         }
     
-    def add_to_backlog(self, gstraceback: error_handler.GSTraceback, backup: dict) -> None:
+    def add_to_backlog(self, gstraceback, backup: dict) -> None:
         backup['tb'] = gstraceback
         self.backlog[backup['ln']] = backup

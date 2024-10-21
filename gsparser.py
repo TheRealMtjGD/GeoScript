@@ -6,8 +6,6 @@ from ParserModules import scoping
 from ParserModules import namechecking as nc
 
 from Components import error_handler
-from Components import gsconfig
-from Components import logging
 from Components import macro_handler
 from Components import memory_manager
 import Components
@@ -30,6 +28,12 @@ class GSParser:
             
             traceback = error_handler.GSTraceback(archline, self.linenum, file)
             debug_backlog.add_to_backlog(traceback, debug_backlog.backlog_template(archline, self.linenum))
+            
+            if line.startswith('//') == True:
+                continue
+            elif line == '}':
+                scoping.retractScope()
+                continue
             
             if line.startswith('#') == True:
                 self.definitive_statements(line, (traceback, debug_backlog.backlog_template(archline, self.linenum)))
@@ -63,7 +67,13 @@ class GSParser:
                     'operation': 'define',
                     'identifier': line[0],
                     'type': line[1][0],
-                    'value': vp.parseType(line[1][1])
+                    'value': vp.parseType(line[1][1]),
+
+                    'debug': {
+                        'scope': scoping.gsscope,
+                        'traceback': traceback[0],
+                        'backlog-temp': traceback[1]
+                    }
                 }
             )
         
@@ -85,7 +95,13 @@ class GSParser:
                     'operation': 'define',
                     'identifier': line[0],
                     'type': line[1][0],
-                    'value': vp.parseType(line[1][1])
+                    'value': vp.parseType(line[1][1]),
+
+                    'debug': {
+                        'scope': scoping.gsscope,
+                        'traceback': traceback[0],
+                        'backlog-temp': traceback[1]
+                    }
                 }
             )
         
@@ -98,10 +114,16 @@ class GSParser:
             
             self.parser_list.append(
                 {
-                    'operation': 'define',
+                    'operation': 'pointer-define',
                     'adress': line[0],
                     'type': line[1][0],
-                    'value': vp.parseType(line[1][1])
+                    'value': vp.parseType(line[1][1]),
+
+                    'debug': {
+                        'scope': scoping.gsscope,
+                        'traceback': traceback[0],
+                        'backlog-temp': traceback[1]
+                    }
                 }
             )
         
@@ -134,7 +156,13 @@ class GSParser:
                         'operation': 'function',
                         'identifier': line[0],
                         'arguments': line[1],
-                        'scope': scoping.gsscope
+                        'scope': scoping.gsscope,
+
+                        'debug': {
+                            'scope': scoping.gsscope,
+                            'traceback': traceback[0],
+                            'backlog-temp': traceback[1]
+                        }
                     }
                 )
         
@@ -160,7 +188,13 @@ class GSParser:
                         'operation': 'define-container',
                         'x': line[0],
                         'y': line[1],
-                        'scope': scoping.gsscope
+                        'scope': scoping.gsscope,
+
+                        'debug': {
+                            'scope': scoping.gsscope,
+                            'traceback': traceback[0],
+                            'backlog-temp': traceback[1]
+                        }
                     }
                 )
         
@@ -177,7 +211,13 @@ class GSParser:
                     {
                         'operation': 'define-struct',
                         'identifier': line,
-                        'scope': scoping.gsscope
+                        'scope': scoping.gsscope,
+
+                        'debug': {
+                            'scope': scoping.gsscope,
+                            'traceback': traceback[0],
+                            'backlog-temp': traceback[1]
+                        }
                     }
                 )
         
@@ -201,7 +241,13 @@ class GSParser:
                             'operation': 'define-class',
                             'identifier': line[0],
                             'inheritince': line[1],
-                            'scope': scoping.gsscope
+                            'scope': scoping.gsscope,
+
+                            'debug': {
+                                'scope': scoping.gsscope,
+                                'traceback': traceback[0],
+                                'backlog-temp': traceback[1]
+                            }
                         }
                     )
                 
@@ -212,7 +258,13 @@ class GSParser:
                             'operation': 'define-class',
                             'identifier': line,
                             'inheritince': None,
-                            'scope': scoping.gsscope
+                            'scope': scoping.gsscope,
+
+                            'debug': {
+                                'scope': scoping.gsscope,
+                                'traceback': traceback[0],
+                                'backlog-temp': traceback[1]
+                            }
                         }
                     )
         
@@ -226,7 +278,13 @@ class GSParser:
             self.parser_list.append(
                 {
                     'operation': 'add',
-                    'object-str': line
+                    'object-str': line,
+
+                    'debug': {
+                        'scope': scoping.gsscope,
+                        'traceback': traceback[0],
+                        'backlog-temp': traceback[1]
+                    }
                 }
             )
         
@@ -238,7 +296,13 @@ class GSParser:
                 {
                     'operation': 'spawn',
                     'group': line[0],
-                    'duration': line[1]
+                    'duration': line[1],
+
+                    'debug': {
+                        'scope': scoping.gsscope,
+                        'traceback': traceback[0],
+                        'backlog-temp': traceback[1]
+                    }
                 }
             )
         
@@ -262,7 +326,13 @@ class GSParser:
                     {
                         'operation': 'if-statement',
                         'math': parsed_math,
-                        'scope': scoping.gsscope
+                        'scope': scoping.gsscope,
+
+                        'debug': {
+                            'scope': scoping.gsscope,
+                            'traceback': traceback[0],
+                            'backlog-temp': traceback[1]
+                        }
                     }
                 )
         
@@ -281,7 +351,13 @@ class GSParser:
                     {
                         'operation': 'if-statement',
                         'math': parsed_math,
-                        'scope': scoping.gsscope
+                        'scope': scoping.gsscope,
+
+                        'debug': {
+                            'scope': scoping.gsscope,
+                            'traceback': traceback[0],
+                            'backlog-temp': traceback[1]
+                        }
                     }
                 )
         
@@ -296,7 +372,13 @@ class GSParser:
                 self.parser_list.append(
                     {
                         'operation': 'else-statement',
-                        'scope': scoping.gsscope
+                        'scope': scoping.gsscope,
+
+                        'debug': {
+                            'scope': scoping.gsscope,
+                            'traceback': traceback[0],
+                            'backlog-temp': traceback[1]
+                        }
                     }
                 )
         
@@ -315,7 +397,13 @@ class GSParser:
                     {
                         'operation': 'while-loop',
                         'operand': parsed_math,
-                        'scope': scoping.gsscope
+                        'scope': scoping.gsscope,
+
+                        'debug': {
+                            'scope': scoping.gsscope,
+                            'traceback': traceback[0],
+                            'backlog-temp': traceback[1]
+                        }
                     }
                 )
         
@@ -335,7 +423,13 @@ class GSParser:
                         'variable': line[0],
                         'operand': cp.parseComparitive(line[1]),
                         'oper': line[2].removeprefix(line[0]),
-                        'scope': scoping.gsscope
+                        'scope': scoping.gsscope,
+
+                        'debug': {
+                            'scope': scoping.gsscope,
+                            'traceback': traceback[0],
+                            'backlog-temp': traceback[1]
+                        }
                     }
                 )
         
@@ -347,7 +441,13 @@ class GSParser:
                     {
                         'operation': 'var-operation',
                         'variable': line[0],
-                        'operation': mp.parseMathOperation(line[1])
+                        'operation': mp.parseMathOperation(line[1]),
+
+                        'debug': {
+                            'scope': scoping.gsscope,
+                            'traceback': traceback[0],
+                            'backlog-temp': traceback[1]
+                        }
                     }
                 )
             
@@ -362,7 +462,13 @@ class GSParser:
                     {
                         'operation': 'call-function',
                         'arguments': line[1],
-                        'name': line[0]
+                        'name': line[0],
+
+                        'debug': {
+                            'scope': scoping.gsscope,
+                            'traceback': traceback[0],
+                            'backlog-temp': traceback[1]
+                        }
                     }
                 )
         

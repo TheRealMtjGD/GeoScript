@@ -1,5 +1,5 @@
 # 54 > 0x009 && foo == "bar" 
-import value_parser
+from  . import value_parser
 
 __comparitives = [
     '>',

@@ -244,6 +244,127 @@ class GSParser:
         
         else:
             error_handler.ThrowError('InvalidStatementError', 'Invalid placement statement', traceback[0])
+    
+    
+    def ctrlf_and_looping_statements(self, line: str, traceback: tuple) -> None:
+        if line.startswith('if') == True:
+            line = line.removeprefix('if(')
+            
+            if line.endswith('){}') == True:
+                ...
+            else:
+                line = line.removesuffix('){')
+                parsed_math = cp.parseComparitive(line)
+                
+                scoping.updateScope('if-statement')
+                
+                self.parser_list.append(
+                    {
+                        'operation': 'if-statement',
+                        'math': parsed_math,
+                        'scope': scoping.gsscope
+                    }
+                )
+        
+        elif line.startswith('}elseif') == True:
+            line = line.removeprefix('}elseif(')
+            
+            if line.endswith('){}') == True:
+                ...
+            else:
+                line = line.removesuffix('){')
+                parsed_math = cp.parseComparitive(line)
+                
+                scoping.updateScope('elif-statement')
+                
+                self.parser_list.append(
+                    {
+                        'operation': 'if-statement',
+                        'math': parsed_math,
+                        'scope': scoping.gsscope
+                    }
+                )
+        
+        elif line.startswith('}else') == True:
+            line = line.removeprefix('}else{')
+            
+            if line.endswith('}') == True:
+                ...
+            else:
+                scoping.updateScope('else-statement')
+                
+                self.parser_list.append(
+                    {
+                        'operation': 'else-statement',
+                        'scope': scoping.gsscope
+                    }
+                )
+        
+        
+        elif line.startswith('while') == True:
+            line = line.removeprefix('while(')
+            
+            if line.endswith('){}') == True:
+                ...
+            else:
+                line = line.removesuffix('){')
+                parsed_math = cp.parseComparitive(line)
+                
+                scoping.updateScope('while-loop')
+                self.parser_list.append(
+                    {
+                        'operation': 'while-loop',
+                        'operand': parsed_math,
+                        'scope': scoping.gsscope
+                    }
+                )
+        
+        elif line.startswith('for') == True:
+            line = line.removeprefix('for(')
+            
+            if line.endswith('){}') == True:
+                ...
+            else:
+                line = line.removesuffix('){')
+                line = line.split(';')
+                
+                scoping.updateScope('for-loop')
+                self.parser_list.append(
+                    {
+                        'operation': 'for-loop',
+                        'variable': line[0],
+                        'operand': cp.parseComparitive(line[1]),
+                        'oper': line[2].removeprefix(line[0]),
+                        'scope': scoping.gsscope
+                    }
+                )
+        
+        else:
+            if '=' in line:
+                line = line.split('=', 1)
+                
+                self.parser_list.append(
+                    {
+                        'operation': 'var-operation',
+                        'variable': line[0],
+                        'operation': mp.parseMathOperation(line[1])
+                    }
+                )
+            
+            elif line.endswith(')') == True:
+                line = line.removesuffix(')')
+                line = line.split('(', 1)
+                
+                unparsed_args = line[1].split(',')
+                line[1] = [vp.parseType(i) for i in unparsed_args]
+                
+                self.parser_list.append(
+                    {
+                        'operation': 'call-function',
+                        'arguments': line[1],
+                        'name': line[0]
+                    }
+                )
         
     
     def return_parser(self) -> list:

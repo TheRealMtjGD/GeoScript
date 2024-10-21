@@ -40,12 +40,16 @@ def ThrowWarning(warning: str, description: str, traceback: GSTraceback) -> None
     GSWarningHandlerArray.append(handler)
 
 def ThrowError(error: str, description: str, traceback: GSTraceback) -> None:
-    consolemenu.clear_screen()
-    
     traceback_data = traceback.getdata
     print('Traceback ( with GSErrorHandler )')
     print(f'  File "{traceback_data['f']}", line {traceback_data['ln']}')
     print(f'    {traceback_data['al']}')
+    
+    print('    ', end='')
+    for _ in traceback_data['al']:
+        print('^', end='')
+    print('')
+    
     print(f'{error}: {description}')
     
     exit(1)

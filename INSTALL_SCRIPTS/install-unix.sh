@@ -13,6 +13,8 @@ cp . $GSPATH
 echo "Installing STDLIB"
 cd $GSPATH
 git clone https://github.com/TheRealMtjGD/GSLIB.git
+rm -r Modules
+mv GSLIB Modules
 
 echo "Creating config file"
 echo "gd_main_path=$GD_MAIN_PATH\ngd_appdata_path=$GD_APPDATA_PATH" > $GSPATH/.env

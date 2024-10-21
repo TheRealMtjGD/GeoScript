@@ -6,12 +6,27 @@
 .gitignore              @TheRealMtjGD
 .git/**                 @TheRealMtjGD
 requirements.txt        @TheRealMtjGD
+.env                    @TheRealMtjGD
+config.env              @TheRealMtjGD
 
 # Doc files
-documents/**            @TheRealMtjGD
+Documents/**            @TheRealMtjGD
 README.md               @TheRealMtjGD
 LICENSE.md              @TheRealMtjGD
+SECURITY.md             @TheRealMtjGD
+CHANGELOG.md            @TheRealMtjGD
 
 
 # CompilerLib folders
 Components/**           @TheRealMtjGD
+Commands/**             @TheRealMtjGD
+Logs/**                 @TheRealMtjGD
+INSTALL_SCRIPTS/**      @TheRealMtjGD
+ParserModules/**        @TheRealMtjGD
+Temp/**                 @TheRealMtjGD
+Tests/**                @TheRealMtjGD
+
+# compiler
+gsparser.py             @TheRealMtjGD
+module_compiler.py      @TheRealMtjGD
+abstract_st.py          @TheRealMtjGD

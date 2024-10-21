@@ -1,3 +1,2 @@
 ConsoleMenu
-dotenv
 xmltodict

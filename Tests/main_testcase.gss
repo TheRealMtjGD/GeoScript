@@ -1,0 +1,10 @@
+#include "Tests/test_module.gsh"
+
+test_function()
+place_and_call(874)
+
+#const hello: float = 74.09
+
+if (36 == 84) {
+    
+}

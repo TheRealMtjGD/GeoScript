@@ -57,7 +57,10 @@ def parseType(value: str) -> dict:
         return TypeTemplates().intager_template(int(value))
     elif '.' in value:
         return TypeTemplates().float_template(float(value))
-    elif ['true', 'false'] in value:
+    
+    elif 'true' == value:
+        return TypeTemplates().bool_template(value)
+    elif 'false' == value:
         return TypeTemplates().bool_template(value)
     
     try:

@@ -84,7 +84,7 @@ class GSParser:
             
             pointer = self.memory_manager.get_pointer
             
-            if nc.checkName(line[1][1]) == True:
+            if nc.checkName(line[0]) == True:
                 error_handler.ThrowError('NameError', 'Invalid character in constant name', traceback[0])
             
             self.memory_manager.allocateValue(pointer)

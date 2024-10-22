@@ -10,6 +10,10 @@ GeoScript is a high preformance, staticly typed, object oriented programming lan
 
 * License: https://github.com/TheRealMtjGD/GeoScript/blob/main/LICENSE.md
 
+* Security policy: https://github.com/TheRealMtjGD/GeoScript/blob/main/SECURITY.md
+
+* Changelog: https://github.com/TheRealMtjGD/GeoScript/blob/main/CHANGELOG.md
+
 
 Suppoting OSs
 ----------------------
@@ -37,3 +41,22 @@ MtjGD's discord username: __mtjgd__
 GeoScript testing server: __https://discord.gg/nulllol__
 
 Developer guide: __https://github.com/TheRealMtjGD/GeoScript/tree/main/Documents__
+
+
+Building GeoScript
+-----------------------
+Windows:
+
+    * Download python from __https://python.org/downloads__ and git from __https://git-scm.com/downloads__
+
+    * Download the source code from this repository
+
+    * Cd into the INSTALL_SCRIPTS directory and run ./install-windows.bat
+
+Linux:
+
+    * Download python from __https://python.org/downloads__ and git from __https://git-scm.com/downloads__
+
+    * Download the source code from this repository
+
+    * Cd into the INSTALL_SCRIPTS directory and run ./install-unix.sh

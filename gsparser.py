@@ -149,8 +149,7 @@ class GSParser:
                 line[1] = line[1].split(',')
                 for i in enumerate(line[1]):
                     line[1][i[0]] = line[1][i[0]].split(':', 1)
-                    
-                scoping.updateScope(line[0])
+                
                 self.parser_list.append(
                     {
                         'operation': 'function',
@@ -165,6 +164,7 @@ class GSParser:
                         }
                     }
                 )
+                scoping.updateScope(line[0])
         
         elif line.startswith('#include') == True:
             ...
@@ -182,7 +182,6 @@ class GSParser:
                 line = line.removesuffix('{')
                 line = line.split(',', 1)
                 
-                scoping.updateScope('container')
                 self.parser_list.append(
                     {
                         'operation': 'define-container',
@@ -197,6 +196,7 @@ class GSParser:
                         }
                     }
                 )
+                scoping.updateScope('container')
         
         elif line.startswith('@struct') == True:
             line = line.removeprefix('@struct')
@@ -206,7 +206,6 @@ class GSParser:
             else:
                 line = line.removesuffix('{')
                 
-                scoping.updateScope(line)
                 self.parser_list.append(
                     {
                         'operation': 'define-struct',
@@ -220,6 +219,7 @@ class GSParser:
                         }
                     }
                 )
+                scoping.updateScope(line)
         
         elif line.startswith('@class') == True:
             line = line.removeprefix('@class')
@@ -235,7 +235,6 @@ class GSParser:
                     line = line.split('(')
                     line[1] = line[1].split(',')
                     
-                    scoping.updateScope(line[0])
                     self.parser_list.append(
                         {
                             'operation': 'define-class',
@@ -250,9 +249,9 @@ class GSParser:
                             }
                         }
                     )
+                    scoping.updateScope(line[0])
                 
                 else:
-                    scoping.updateScope(line[0])
                     self.parser_list.append(
                         {
                             'operation': 'define-class',
@@ -267,6 +266,7 @@ class GSParser:
                             }
                         }
                     )
+                    scoping.updateScope(line[0])
         
         else:
             error_handler.ThrowError('InvalidStatementError', 'Invalid statement error', traceback[0])
@@ -320,8 +320,6 @@ class GSParser:
                 line = line.removesuffix('){')
                 parsed_math = cp.parseComparitive(line)
                 
-                scoping.updateScope('if-statement')
-                
                 self.parser_list.append(
                     {
                         'operation': 'if-statement',
@@ -335,6 +333,7 @@ class GSParser:
                         }
                     }
                 )
+                scoping.updateScope('if-statement')
         
         elif line.startswith('}elseif') == True:
             line = line.removeprefix('}elseif(')
@@ -345,8 +344,6 @@ class GSParser:
                 line = line.removesuffix('){')
                 parsed_math = cp.parseComparitive(line)
                 
-                scoping.updateScope('elif-statement')
-                
                 self.parser_list.append(
                     {
                         'operation': 'if-statement',
@@ -360,6 +357,7 @@ class GSParser:
                         }
                     }
                 )
+                scoping.updateScope('elif-statement')
         
         elif line.startswith('}else') == True:
             line = line.removeprefix('}else{')
@@ -367,7 +365,6 @@ class GSParser:
             if line.endswith('}') == True:
                 ...
             else:
-                scoping.updateScope('else-statement')
                 
                 self.parser_list.append(
                     {
@@ -381,6 +378,7 @@ class GSParser:
                         }
                     }
                 )
+                scoping.updateScope('else-statement')
         
         
         elif line.startswith('while') == True:
@@ -392,7 +390,6 @@ class GSParser:
                 line = line.removesuffix('){')
                 parsed_math = cp.parseComparitive(line)
                 
-                scoping.updateScope('while-loop')
                 self.parser_list.append(
                     {
                         'operation': 'while-loop',
@@ -406,6 +403,7 @@ class GSParser:
                         }
                     }
                 )
+                scoping.updateScope('while-loop')
         
         elif line.startswith('for') == True:
             line = line.removeprefix('for(')
@@ -416,7 +414,6 @@ class GSParser:
                 line = line.removesuffix('){')
                 line = line.split(';')
                 
-                scoping.updateScope('for-loop')
                 self.parser_list.append(
                     {
                         'operation': 'for-loop',
@@ -432,6 +429,7 @@ class GSParser:
                         }
                     }
                 )
+                scoping.updateScope('for-loop')
         
         else:
             if '=' in line:

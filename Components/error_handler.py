@@ -32,7 +32,15 @@ class GSWarningHandler:
         print(f'  File "{data['f']}", line {data['ln']}')
         print(f'    {data['al']}')
         print(f'{self.handler['w']}: {self.handler['d']}')
-        print('')
+        print('\n')
+
+class InternalWarningHandler:
+    def __init_(self, warning: str, description: str) -> None:
+        self.w, self.d = warning, description
+    
+    def throw(self) -> None:
+        print('A warning has been raised in the internal compiler')
+        print(f'    {self.w}: {self.d}\n')
 
 
 def ThrowWarning(warning: str, description: str, traceback: GSTraceback) -> None:
@@ -53,3 +61,6 @@ def ThrowError(error: str, description: str, traceback: GSTraceback) -> None:
     print(f'{error}: {description}')
     
     exit(1)
+
+def ThrowInternalCompilerWarning(error: str, description: str) -> None:
+    GSWarningHandlerArray.append(InternalWarningHandler(error, description))

@@ -11,13 +11,13 @@ from Components import memory_manager
 import Components
 
 class GSParser:
-    def __init__(self, input_str: str, file: str) -> None:
+    def __init__(self, input_str: str, file: str, mem: dict) -> None:
         self.file = file
         self.parser_list = []
         self.linenum = 1
         
-        self.memory_manager = memory_manager.InitHeapMemory()
-        self.identifier_stack = memory_manager.IdentifierStack()
+        self.memory_manager = mem['hm']
+        self.identifier_stack = mem['ids']
         
         debug_backlog = ParserModules.DebugParserBacklog()
         

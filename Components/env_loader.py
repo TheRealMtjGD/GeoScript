@@ -1,3 +1,5 @@
+import os
+
 def loadDotEnv(file: str) -> dict:
     dotenv = {}
     
@@ -10,6 +12,9 @@ def loadDotEnv(file: str) -> dict:
             else:
                 lnsplit = i.split('=', 1)
                 lnsplit[1] = lnsplit[1].removeprefix('"').removesuffix('"')
+                
+                if lnsplit[1] == '{{PUBLIC}}':
+                    lnsplit[1] = os.getlogin()
                 
                 dotenv[lnsplit[0]] = lnsplit[1]
     

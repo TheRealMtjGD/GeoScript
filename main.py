@@ -3,12 +3,14 @@ from Components import gsconfig
 from Components import env_loader
 from Components import memory_manager
 from Components import logging
+from BackendModules import resource_managers
+from BackendModules import savefile
 import gsparser
 import backup
 import abstract_st
-import type_checking
 import module_compiler
 import gsc_compile
+import shutil
 
 def load_enviroments() -> tuple[dict]:
     main_config = env_loader.loadDotEnv('.env')
@@ -62,6 +64,10 @@ def main() -> None:
     logging.logToFile(logging.P, 'Creating backups', logging.CompileLog)
     backup.backupSavefile(f'{main_env['gd_appdata_loc']}/CCLocalLevels.dat')
     
+    shutil.copyfile(f'{main_env['gd_appdata_loc']}/CCLocalLevels.dat', 'Temp/savefile.dat')
+    savefile.decodeSavefile()
+    default_level_string = savefile.getLevelData(config_env['level'])
+    
     # compile mode
     if config_env['buildmode'] == 'std':
         if compile_requirements['compile-mode'] == 'Standard':
@@ -70,6 +76,10 @@ def main() -> None:
             logging.logToFile(logging.S, 'Creating pointer heap and identifier stack', logging.CompileLog)
             heap_memory = memory_manager.InitHeapMemory(int(main_env['heap_memory_max']))
             identifier_stack = memory_manager.IdentifierStack()
+            
+            logging.logToFile(logging.S, 'Creating GD Resource managers', logging.CompileLog)
+            group_manager = resource_managers.initGroupManager(default_level_string)
+            counter_manager = resource_managers.initCounterManager(default_level_string)
             
             # frontend
             logging.logToFile(logging.P, 'Compiling modules into gspackage', logging.CompileLog)
@@ -91,6 +101,10 @@ def main() -> None:
         logging.logToFile(logging.S, 'Creating pointer heap and identifier stack', logging.CompileLog)
         heap_memory = memory_manager.InitHeapMemory(int(main_env['heap_memory_max']))
         identifier_stack = memory_manager.IdentifierStack()
+        
+        logging.logToFile(logging.S, 'Creating GD Resource managers', logging.CompileLog)
+        group_manager = resource_managers.initGroupManager(default_level_string)
+        counter_manager = resource_managers.initCounterManager(default_level_string)
             
         # frontend
         logging.logToFile(logging.P, 'Compiling modules into gspackage', logging.CompileLog)

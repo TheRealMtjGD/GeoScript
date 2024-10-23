@@ -30,6 +30,9 @@ def parseMathOperation(operation: str) -> list:
     ops = operation.split(' ')
     unsorted_parsed = []
     
+    if len(ops) == 1:
+        return value_parser.parseType(ops[0])
+    
     for _ in range(0, len(ops), 4):
         unsorted_parsed.append([ops[0], ops[1], ops[2]])
         

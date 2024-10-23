@@ -19,6 +19,18 @@ class TypeTemplates:
             'base-class': 'intager'
         }
     
+    def function_template(self, value: str) -> dict:
+        value = value.removesuffix(')')
+        value = value.split('(', 1)
+                
+        unparsed_args = value[1].split(',')
+        value[1] = [parseType(i) for i in unparsed_args]
+        return {
+            'base-class': 'function',
+            'name': value[0],
+            'arguments': value[1]
+        }
+    
     def string_template(self, value: str) -> dict:
         return {
             'value': value,

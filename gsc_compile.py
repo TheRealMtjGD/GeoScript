@@ -2,7 +2,7 @@ import zlib
 import base64
 import json
 
-def encodeGSCFile(ast: dict, ct: dict, mem: dict, output: str) -> None:
+def encodeGSCFile(ast: str, ct: dict, mem: dict, output: str) -> None:
     with open(output, 'wb') as file:
         out = {
             'abstrct-syntax-tree': ast,
@@ -10,7 +10,7 @@ def encodeGSCFile(ast: dict, ct: dict, mem: dict, output: str) -> None:
             'memory-tree': mem
         }
         
-        outbytes = json.dumps(out)
+        outbytes = json.dumps(out).encode()
         outbytes = zlib.compress(base64.b64encode(outbytes))
         file.write(outbytes)
 
@@ -22,7 +22,7 @@ class decodeGSCFile:
     
     @property
     def get_ast(self) -> dict:
-        return self.inf['abstract-syntax-tree']
+        return eval(self.inf['abstract-syntax-tree'])
     
     @property
     def get_call_tree(self) -> dict:
